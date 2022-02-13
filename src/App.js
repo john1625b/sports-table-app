@@ -1,6 +1,7 @@
 import './App.css'
 import {data} from './data'
 import {useState} from "react";
+import CsvDownload from 'react-json-to-csv'
 
 function App() {
     const [selectedCol, setSelectedCol] = useState('')
@@ -30,8 +31,13 @@ function App() {
         }
         return data
     }
+    const filteredAndSortedData = filterPlayerName(sortByColumn(data, selectedCol), playerNameInput)
     return (
         <div className="App">
+            <div>
+                <p>Export table data as CSV:</p>
+                <CsvDownload data={filteredAndSortedData} filename="exported-sports-data" />
+            </div>
             <input type="text" placeholder="Search player name" name="search"
                    onChange={e => setPlayerNameInput(e.target.value)}/>
             {
@@ -48,7 +54,7 @@ function App() {
                 </thead>
                 <tbody>
                 {
-                    filterPlayerName(sortByColumn(data, selectedCol), playerNameInput).map(row => (
+                    filteredAndSortedData.map(row => (
                         <tr key={row.Player}>
                             {Object.keys(row).map((column, i) => (<td key={`${row[column]}-${i}`}>{row[column]}</td>))}
                         </tr>
