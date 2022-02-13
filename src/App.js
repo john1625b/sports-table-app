@@ -5,7 +5,7 @@ import CsvDownload from 'react-json-to-csv'
 
 function App() {
     const [selectedCol, setSelectedCol] = useState('')
-    const [sortDirection, setSortDirection] = useState(true);
+    const [sortDirection, setSortDirection] = useState(1);
     const [playerNameInput, setPlayerNameInput] = useState('');
     const columnHeaders = Object.keys(data[0])
     const columnClicked = (col) => {
@@ -32,10 +32,10 @@ function App() {
         return data
     }
     const filteredAndSortedData = filterPlayerName(sortByColumn(data, selectedCol), playerNameInput)
+    const SORTABLE_ROWS = ['Yds', 'Lng', 'TD']
     return (
         <div className="App">
             <div>
-                <p>Export table data as CSV:</p>
                 <CsvDownload data={filteredAndSortedData} filename="exported-sports-data" />
             </div>
             <input type="text" placeholder="Search player name" name="search"
@@ -48,7 +48,14 @@ function App() {
                 <thead>
                 <tr>
                     {
-                        columnHeaders.map(header => (<th key={header} onClick={() => columnClicked(header)}>{header}</th>))
+                        columnHeaders.map(header => {
+                            if (SORTABLE_ROWS.includes(header))  {
+                                return <th key={header} onClick={() => columnClicked(header)}
+                                           className='sortable-header'>{header} {selectedCol === header && (sortDirection === 1 ? '▲' : '▼')}</th>
+                            } else {
+                                return <th key={header}>{header}</th>
+                            }
+                        })
                     }
                 </tr>
                 </thead>

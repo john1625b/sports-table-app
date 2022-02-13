@@ -5,6 +5,16 @@
     width: 50%;
 }
 
+button, input {
+    height: 50px;
+    margin: 20px;
+}
+
+.sortable-header {
+    cursor: pointer;
+}
+
+
 /* Center tables for demo */
 table {
     margin: 0 auto;
@@ -22,7 +32,6 @@ table thead th,
 table tfoot th {
     color: #777;
     background: rgba(0,0,0,.1);
-    cursor: pointer;
 }
 table caption {
     padding:.5em;
