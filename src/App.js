@@ -35,6 +35,7 @@ function App() {
     const SORTABLE_ROWS = ['Yds', 'Lng', 'TD']
     return (
         <div className="App">
+            <h1>Football player stats</h1>
             <div>
                 <CsvDownload data={filteredAndSortedData} filename="exported-sports-data" />
             </div>
