@@ -18,7 +18,7 @@ function App() {
                 if (a[col] < b[col]) {
                     return -1 * sortDirection
                 } else if (a[col] > b[col]) {
-                    return 1 * sortDirection
+                    return sortDirection
                 }
                 return 0
             })
