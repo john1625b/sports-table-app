@@ -32,11 +32,10 @@ function App() {
         return data
     }
     const filteredAndSortedData = filterPlayerName(sortByColumn(data, selectedCol), playerNameInput)
-    console.log(filteredAndSortedData)
     const SORTABLE_ROWS = ['Yds', 'Lng', 'TD']
     return (
         <div className="App">
-            <h1>Football player stats</h1>
+            <h1>Football Player Stats</h1>
             <div>
                 <CsvDownload data={filteredAndSortedData} filename="exported-sports-data"/>
             </div>
@@ -49,7 +48,7 @@ function App() {
             <table>
                 <thead>
                 <tr>
-                    {
+                    { columnHeaders &&
                         columnHeaders.map(header => {
                             if (SORTABLE_ROWS.includes(header)) {
                                 return <th key={header} onClick={() => columnClicked(header)}
