@@ -14,7 +14,7 @@ function App() {
     }
     const sortByColumn = (data, col) => {
         if (col) {
-            return data.sort((a,b) => {
+            return data.sort((a, b) => {
                 if (a[col] < b[col]) {
                     return -1 * sortDirection
                 } else if (a[col] > b[col]) {
@@ -32,12 +32,13 @@ function App() {
         return data
     }
     const filteredAndSortedData = filterPlayerName(sortByColumn(data, selectedCol), playerNameInput)
+    console.log(filteredAndSortedData)
     const SORTABLE_ROWS = ['Yds', 'Lng', 'TD']
     return (
         <div className="App">
             <h1>Football player stats</h1>
             <div>
-                <CsvDownload data={filteredAndSortedData} filename="exported-sports-data" />
+                <CsvDownload data={filteredAndSortedData} filename="exported-sports-data"/>
             </div>
             <input type="text" placeholder="Search player name" name="search"
                    onChange={e => setPlayerNameInput(e.target.value)}/>
@@ -50,7 +51,7 @@ function App() {
                 <tr>
                     {
                         columnHeaders.map(header => {
-                            if (SORTABLE_ROWS.includes(header))  {
+                            if (SORTABLE_ROWS.includes(header)) {
                                 return <th key={header} onClick={() => columnClicked(header)}
                                            className='sortable-header'>{header} {selectedCol === header && (sortDirection === 1 ? '▲' : '▼')}</th>
                             } else {
@@ -60,15 +61,19 @@ function App() {
                     }
                 </tr>
                 </thead>
-                <tbody>
                 {
-                    filteredAndSortedData.map(row => (
-                        <tr key={row.Player}>
-                            {Object.keys(row).map((column, i) => (<td key={`${row[column]}-${i}`}>{row[column]}</td>))}
-                        </tr>
-                    ))
+                    filteredAndSortedData.length !== 0 ?
+                    <tbody>
+                    {
+                        filteredAndSortedData.map(row => (
+                            <tr key={row.Player}>
+                                {Object.keys(row).map((column, i) => (<td key={`${row[column]}-${i}`}>{row[column]}</td>))}
+                            </tr>
+                        ))
+                    }
+                    </tbody>
+                    : <div>No results found</div>
                 }
-                </tbody>
             </table>
         </div>
     );
