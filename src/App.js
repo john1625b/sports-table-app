@@ -3,7 +3,7 @@ import {data} from './data'
 import {useState} from "react";
 import CsvDownload from 'react-json-to-csv'
 
-function App() {
+const App = () => {
     const [selectedCol, setSelectedCol] = useState('')
     const [sortDirection, setSortDirection] = useState(1);
     const [playerNameInput, setPlayerNameInput] = useState('');
